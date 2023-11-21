@@ -1,0 +1,48 @@
+<!--building custom header-->
+<script>
+	$(document).ready(function(){
+		
+		function totalHeightOfElementChildren(elm){
+			if(elm.length == 0){
+				return
+			}
+			var sumHeight = 0;
+			for(let i = 0; i < elm.children.length; i++){
+				let currChildElm = elm.children[i];
+				sumHeight += $(currChildElm).outerHeight(true);
+			}
+			return sumHeight;
+		}
+		
+		//header hamburger icon is made using Alvaro's method at https://codepen.io/alvarotrigo/pen/wvrzPWL
+		//the headerCheckbox refers to the input element that is used to open and close menu elements
+		const headerCheckbox = document.getElementById('customHeaderCheckbox');
+		
+		//get elements involved in header functionality
+		const headerContainer = document.getElementsByClassName('customHeaderContainer')[0];
+		
+		//on screen resize
+		$(window).resize(function(){
+			if($(headerCheckbox).is(':checked')){
+				$(headerContainer).height(totalHeightOfElementChildren(headerContainer));
+			} else {
+				//sets height to container first child
+				$(headerContainer).height($(headerContainer.children[0]).outerHeight(true));
+			}
+		});
+		
+		//set header container height to row 1 on load
+		//would like something better
+		$(headerContainer).height($(headerContainer.children[0]).outerHeight(true));	
+		
+		headerCheckbox.addEventListener('change', (event) => {
+			if (event.currentTarget.checked) {
+				//set height to contents if checkbox is checked
+				$(headerContainer).height(totalHeightOfElementChildren(headerContainer));
+			} else {
+				//set height to height of 1st child if unchecked
+				$(headerContainer).height($(headerContainer.children[0]).outerHeight(true));
+			}
+		})
+	});
+</script>
