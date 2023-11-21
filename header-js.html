@@ -20,6 +20,7 @@
 		
 		//get elements involved in header functionality
 		const headerContainer = document.getElementsByClassName('customHeaderContainer')[0];
+		const headerClosedEmailIcon = document.getElementById('customHeaderEmailIconClosed');
 		
 		//on screen resize
 		$(window).resize(function(){
@@ -39,9 +40,16 @@
 			if (event.currentTarget.checked) {
 				//set height to contents if checkbox is checked
 				$(headerContainer).height(totalHeightOfElementChildren(headerContainer));
+				
+				headerClosedEmailIcon.style.opacity = 0;
+				headerClosedEmailIcon.classList.add("inactiveLink");
 			} else {
 				//set height to height of 1st child if unchecked
 				$(headerContainer).height($(headerContainer.children[0]).outerHeight(true));
+				
+				headerClosedEmailIcon.style.opacity = 1;
+				headerClosedEmailIcon.classList.remove("inactiveLink");
+				
 			}
 		})
 	});
